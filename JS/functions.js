@@ -3,7 +3,7 @@ function generateSnakePart(){
     x = snake.at(-1).x -10;
     y = snake.at(-1).y;
     
-    let newPart = new SnakePart(x, y)
+    let newPart = new SnakePart(x, y, false)
     snake.push(newPart)
 }
 
@@ -16,16 +16,27 @@ function drawSnake(){
         element.y < 0 ? element.y = canvas.height : element.y = element.y;
         element.draw();
 
-        if(element.eat(comida)){
-            generateSnakePart();
-            console.log('comi');
-            Destroy(comida);
-        }
+        comidas.forEach((comida, comidaIndex)=>{
+            comida.draw();
+            if(element.eat(comida) && element.head){
+                generateSnakePart();
+                score ++;
+                console.log('comi', score);
+                comidas.splice(comidaIndex, 1);
+                createFood();
+                console.log(comidas.length);
+            }
+        })
+
     })
 }
 
-function drawFood(){
-    comida.draw(110,110);
+function createFood(){
+    let x = Math.floor(Math.random() * canvas.width - 10);
+    let y = Math.floor(Math.random() * canvas.height -10);
+
+    let comida = new Food(x,y)
+    comidas.push(comida)
 }
 
 // PARA DEFINIR LA DIRECCIÓN EN LA QUE SE MUEVE LA SERPIENTE
@@ -33,8 +44,13 @@ function moveSnake(){
     x = snake[0].x + movimientoX,
     y = snake[0].y + movimientoY;
 
-    let newHead = new SnakePart(x, y)
+    let newHead = new SnakePart(x, y, true)
     snake.unshift(newHead);
+    snake.forEach((snake, index)=>{
+        if(index){
+            snake.head = false
+        }
+    })
     snake.pop();
 }
 
@@ -44,7 +60,7 @@ function update(){
     ctx.strokeRect(0,0,canvas.width, canvas.height)
     moveSnake();
     drawSnake();
-    drawFood();
+    //drawFood();
     
 
     if(requestID){

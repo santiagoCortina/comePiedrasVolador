@@ -1,9 +1,10 @@
 class SnakePart{
-    constructor(x,y){
+    constructor(x,y,head){
         this.x = x;
         this.y = y;
         this.width = 10;
         this.height = 10;
+        this.head = head;
     }
 
     draw(){
@@ -38,11 +39,12 @@ class Food {
     }
 }
 
-let comePiedras = new SnakePart(centerX, centerY)
+let comePiedras = new SnakePart(centerX, centerY, true)
 snake.push(comePiedras);
 
 let comida = new Food(110,110)
-console.log(comida)
+comidas.push(comida)
+console.log(comidas)
 
 generateSnakePart();
 drawSnake();

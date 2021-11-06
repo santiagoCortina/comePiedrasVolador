@@ -8,6 +8,8 @@ ctx.strokeRect(0,0,canvas.width, canvas.height)
 let frames = 0;
 let requestId = 0;
 const snake = [];
+const comidas = [];
+let score = 0;
 let movimientoX =0;
 let movimientoY =0;
 let lastKey = 0;
