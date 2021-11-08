@@ -39,15 +39,30 @@ class Food {
     }
 }
 
+class BonusFood{
+    constructor(x,y){
+        this.x = x;
+        this.y = y;
+        this.width = 20;
+        this.height = 20;
+
+        this.image = new Image();
+        this.image.src = '../images/diamante.png';
+    }
+
+    draw(){
+        ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+    }
+}
+
 let comePiedras = new SnakePart(centerX, centerY, true)
 snake.push(comePiedras);
+head = comePiedras;
 
 let comida = new Food(110,110)
 comidas.push(comida)
-console.log(comidas)
+console.log(head)
 
-generateSnakePart();
-drawSnake();
 
 window.onload = () => {
     document.getElementById('start-button').onclick = () => {

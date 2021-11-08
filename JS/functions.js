@@ -16,6 +16,23 @@ function drawSnake(){
         element.y < 0 ? element.y = canvas.height : element.y = element.y;
         element.draw();
 
+        if(bonuses.length){
+            bonuses.forEach((bonusFood, index)=>{
+                bonusFood.draw();
+                if(element.eat(bonusFood) && element.head){
+                    generateSnakePart();
+                    score += 10;
+                    console.log('comi', score);
+                    bonuses.splice(index, 1);
+                }
+            })
+        }  
+        
+        if(bonuses.length > 1){
+            const timeoutId = setTimeout(deleteBonus(0), 4000);
+            clearTimeout(timeoutId);
+        }
+
         comidas.forEach((comida, comidaIndex)=>{
             comida.draw();
             if(element.eat(comida) && element.head){
@@ -28,12 +45,17 @@ function drawSnake(){
             }
         })
 
+        if(head.eat(element) && !element.head){
+            gameOver()
+            console.log('bye')
+        }
+        
     })
 }
 
 function createFood(){
-    let x = Math.floor(Math.random() * canvas.width - 10);
-    let y = Math.floor(Math.random() * canvas.height -10);
+    let x = Math.floor(Math.random() * (canvas.width - 20) + 10);
+    let y = Math.floor(Math.random() * (canvas.height -20) + 10);
 
     let comida = new Food(x,y)
     comidas.push(comida)
@@ -45,7 +67,11 @@ function moveSnake(){
     y = snake[0].y + movimientoY;
 
     let newHead = new SnakePart(x, y, true)
+
     snake.unshift(newHead);
+    console.log(head)
+    head = newHead;
+    console.log(head)
     snake.forEach((snake, index)=>{
         if(index){
             snake.head = false
@@ -54,14 +80,31 @@ function moveSnake(){
     snake.pop();
 }
 
+// PARA BORRRA EL BONUS
+function deleteBonus(index) {
+    bonuses.splice(index, 1);
+    }
+
+function gameOver(){
+    requestID = undefined;
+}
+
+
 // LO QUE HACE QUE EL JUEGO SE EJECUTE TODO EL TIEMPO
 function update(){
+    frames ++;
+    if(frames % 550 === 0 || frames % 1300 ===0){
+        let x = Math.floor(Math.random() * canvas.width - 10);
+        let y = Math.floor(Math.random() * canvas.height -10);
+        let bonus = new BonusFood(x,y);
+        console.log(bonus);
+        bonuses.push(bonus);
+        console.log(bonuses);
+    }
     ctx.clearRect(0,0,canvas.width,canvas.height);
     ctx.strokeRect(0,0,canvas.width, canvas.height)
     moveSnake();
-    drawSnake();
-    //drawFood();
-    
+    drawSnake();    
 
     if(requestID){
         requestID = requestAnimationFrame(update)
