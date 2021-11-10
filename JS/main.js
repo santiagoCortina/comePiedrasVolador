@@ -47,7 +47,7 @@ class BonusFood{
         this.height = 20;
 
         this.image = new Image();
-        this.image.src = '../images/diamante.png';
+        this.image.src = '../images/diamond.png';
     }
 
     draw(){
@@ -55,23 +55,50 @@ class BonusFood{
     }
 }
 
-let comePiedras = new SnakePart(centerX, centerY, true)
-snake.push(comePiedras);
-head = comePiedras;
+class Background {
+    constructor(){
+        this.x = 0;
+        this.y = 0;
+        this.width = canvas.width;
+        this.height = canvas.height;
+        this.imgGameOver = new Image();
+        this.imgGameOver.src = '../images/gameOver.png'
+    }
 
-let comida = new Food(110,110)
-comidas.push(comida)
-console.log(head)
+    gameOver(){
+        ctx.globalAlphas = 0.5;
+        ctx.drawImage(this.imgGameOver,this.x,this.y,this.width,this.height)
+        document.getElementById('start-button').style.visibility = "visible";
+    }
+}
 
+// let comePiedras = new SnakePart(centerX, centerY, true)
+// snake.push(comePiedras);
+// head = comePiedras;
+
+// let comida = new Food(110,110)
+// comidas.push(comida)
+// console.log(head)
 
 window.onload = () => {
     document.getElementById('start-button').onclick = () => {
         startGame();
+        audio1.play();
     }
 
     function startGame(){
+        snake=[];
+        let comePiedras = new SnakePart(centerX, centerY, true);
+        snake.push(comePiedras);
+        head = comePiedras;
+
+        comidas = [];
+        let comida = new Food(110,110);
+        comidas.push(comida);
+
         comePiedras.draw();
         requestID = requestAnimationFrame(update);
+        document.getElementById('start-button').style.visibility = "hidden";
     }
 }
 

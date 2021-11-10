@@ -9,6 +9,9 @@ function generateSnakePart(){
 
 // PARA DIBUJAR LA SERPIENTE
 function drawSnake(){
+
+    let bg = new Background;
+    ctx.globalAlpha = 1;
     snake.forEach((element, index) =>{
         element.x > canvas.width - element.width ? element.x = 0 : element.x = element.x;
         element.x < 0 ? element.x = canvas.width : element.x = element.x;
@@ -22,7 +25,6 @@ function drawSnake(){
                 if(element.eat(bonusFood) && element.head){
                     generateSnakePart();
                     score += 10;
-                    console.log('comi', score);
                     bonuses.splice(index, 1);
                 }
             })
@@ -38,16 +40,13 @@ function drawSnake(){
             if(element.eat(comida) && element.head){
                 generateSnakePart();
                 score ++;
-                console.log('comi', score);
                 comidas.splice(comidaIndex, 1);
                 createFood();
-                console.log(comidas.length);
             }
         })
 
         if(head.eat(element) && !element.head){
-            gameOver()
-            console.log('bye')
+            gameOver(bg)
         }
         
     })
@@ -69,9 +68,7 @@ function moveSnake(){
     let newHead = new SnakePart(x, y, true)
 
     snake.unshift(newHead);
-    console.log(head)
     head = newHead;
-    console.log(head)
     snake.forEach((snake, index)=>{
         if(index){
             snake.head = false
@@ -85,10 +82,19 @@ function deleteBonus(index) {
     bonuses.splice(index, 1);
     }
 
-function gameOver(){
+function gameOver(item){
+    item.gameOver();
+    audio1.pause();
+    audio2.pause();
     requestID = undefined;
 }
 
+function drawScore(){
+    ctx.globalAlpha = 0.3;
+    ctx.fillStyle = '#000';
+    ctx.font= "20px Arial"
+    ctx.fillText(`Score: ${score}`,400,30)
+}
 
 // LO QUE HACE QUE EL JUEGO SE EJECUTE TODO EL TIEMPO
 function update(){
@@ -97,14 +103,20 @@ function update(){
         let x = Math.floor(Math.random() * canvas.width - 10);
         let y = Math.floor(Math.random() * canvas.height -10);
         let bonus = new BonusFood(x,y);
-        console.log(bonus);
         bonuses.push(bonus);
-        console.log(bonuses);
     }
     ctx.clearRect(0,0,canvas.width,canvas.height);
-    ctx.strokeRect(0,0,canvas.width, canvas.height)
+    ctx.strokeRect(0,0,canvas.width, canvas.height);
+    drawScore();
+    ctx.fillStyle = snakeFill;
     moveSnake();
     drawSnake();    
+
+    if(snake.length === 40){
+        audio1.pause();
+        audio2.play();
+        snakeFill = '#FFB830';
+    }
 
     if(requestID){
         requestID = requestAnimationFrame(update)
