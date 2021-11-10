@@ -17,6 +17,7 @@ let frames = 0;
 let requestId = undefined;
 let snake = [];
 let comidas = [];
+let enemies = [];
 const bonuses = [];
 let score = 0;
 let movimientoX =0;

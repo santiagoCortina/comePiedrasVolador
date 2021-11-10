@@ -35,6 +35,25 @@ function drawSnake(){
             clearTimeout(timeoutId);
         }
 
+        if(enemies.length){
+            enemies.forEach((enemigo, index)=>{
+                enemigo.draw();
+                if(element.eat(enemigo) && element.head){
+                    generateSnakePart();
+                    generateSnakePart();
+                    generateSnakePart();
+                    generateSnakePart();
+                    generateSnakePart();
+                    enemies.splice(index, 1);
+                }
+            })
+        }  
+        
+        if(enemies.length > 1){
+            const timeoutId2 = setTimeout(deleteEnemy(0), 4000);
+            clearTimeout(timeoutId2);
+        }
+
         comidas.forEach((comida, comidaIndex)=>{
             comida.draw();
             if(element.eat(comida) && element.head){
@@ -82,6 +101,10 @@ function deleteBonus(index) {
     bonuses.splice(index, 1);
     }
 
+function deleteEnemy(index) {
+    enemies.splice(index, 1);
+    }
+
 function gameOver(item){
     item.gameOver();
     audio1.pause();
@@ -100,11 +123,19 @@ function drawScore(){
 function update(){
     frames ++;
     if(frames % 550 === 0 || frames % 1300 ===0){
-        let x = Math.floor(Math.random() * canvas.width - 10);
-        let y = Math.floor(Math.random() * canvas.height -10);
+        let x = Math.floor(Math.random() * canvas.width - 20);
+        let y = Math.floor(Math.random() * canvas.height -20);
         let bonus = new BonusFood(x,y);
         bonuses.push(bonus);
     }
+
+    if(frames % 330 === 0 || frames % 1500 ===0){
+        let x = Math.floor(Math.random() * canvas.width - 20);
+        let y = Math.floor(Math.random() * canvas.height -20);
+        let enemiy = new Enemies(x,y);
+        enemies.push(enemiy);
+    }
+
     ctx.clearRect(0,0,canvas.width,canvas.height);
     ctx.strokeRect(0,0,canvas.width, canvas.height);
     drawScore();

@@ -55,6 +55,22 @@ class BonusFood{
     }
 }
 
+class Enemies{
+    constructor(x,y){
+        this.x = x;
+        this.y = y;
+        this.width = 20;
+        this.height = 20;
+
+        this.image = new Image();
+        this.image.src = '../images/bomb.png';
+    }
+
+    draw(){
+        ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+    }
+}
+
 class Background {
     constructor(){
         this.x = 0;
