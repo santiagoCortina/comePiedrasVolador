@@ -31,7 +31,7 @@ class Food {
         this.height = 10;
 
         this.image = new Image();
-        this.image.src = '../images/piedra_negra.png';
+        this.image.src = './assets/images/piedra_negra.png';
     }
 
     draw(){
@@ -47,7 +47,7 @@ class BonusFood{
         this.height = 20;
 
         this.image = new Image();
-        this.image.src = '../images/diamond.png';
+        this.image.src = './assets/images/diamond.png';
     }
 
     draw(){
@@ -63,7 +63,7 @@ class Enemies{
         this.height = 20;
 
         this.image = new Image();
-        this.image.src = '../images/bomb.png';
+        this.image.src = './assets/images/bomb.png';
     }
 
     draw(){
@@ -78,7 +78,7 @@ class Background {
         this.width = canvas.width;
         this.height = canvas.height;
         this.imgGameOver = new Image();
-        this.imgGameOver.src = '../images/gameOver.png'
+        this.imgGameOver.src = './assets/images/gameOver.png'
     }
 
     gameOver(){
@@ -87,14 +87,6 @@ class Background {
         document.getElementById('start-button').style.visibility = "visible";
     }
 }
-
-// let comePiedras = new SnakePart(centerX, centerY, true)
-// snake.push(comePiedras);
-// head = comePiedras;
-
-// let comida = new Food(110,110)
-// comidas.push(comida)
-// console.log(head)
 
 window.onload = () => {
     document.getElementById('start-button').onclick = () => {

@@ -6,11 +6,11 @@ const centerY = (canvas.height / 2) - 10;
 ctx.strokeRect(0,0,canvas.width, canvas.height)
 
 const audio1 = new Audio;
-audio1.src = '../audio/chael-sparks.mp3';
+audio1.src = './assets/audio/chael-sparks.mp3';
 audio1.loop = true;
 
 const audio2 = new Audio;
-audio2.src = '../audio/Executioner.mp3';
+audio2.src = './assets/audio/Executioner.mp3';
 audio2.loop = true;
 
 let frames = 0;
