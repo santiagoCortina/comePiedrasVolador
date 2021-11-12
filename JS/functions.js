@@ -42,8 +42,6 @@ function drawSnake(){
                     generateSnakePart();
                     generateSnakePart();
                     generateSnakePart();
-                    generateSnakePart();
-                    generateSnakePart();
                     enemies.splice(index, 1);
                 }
             })
@@ -143,7 +141,7 @@ function update(){
     moveSnake();
     drawSnake();    
 
-    if(snake.length === 40){
+    if(snake.length >= 40 && snakeFill == '#2a9d8f'){
         audio1.pause();
         audio2.play();
         snakeFill = '#FFB830';

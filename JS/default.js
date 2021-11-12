@@ -14,7 +14,7 @@ audio2.src = './assets/audio/Executioner.mp3';
 audio2.loop = true;
 
 let frames = 0;
-let requestId = undefined;
+let requestID = undefined;
 let snake = [];
 let comidas = [];
 let enemies = [];
