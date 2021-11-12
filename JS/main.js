@@ -95,7 +95,9 @@ window.onload = () => {
     }
 
     function startGame(){
-        snakeFill = '#2a9d8f'
+        movimientoX = 0;
+        movimientoY = 0;
+        snakeFill = '#2a9d8f';
         score = 0;
         snake=[];
         let comePiedras = new SnakePart(centerX, centerY, true);

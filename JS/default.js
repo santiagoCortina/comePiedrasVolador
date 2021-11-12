@@ -20,8 +20,8 @@ let comidas = [];
 let enemies = [];
 const bonuses = [];
 let score = 0;
-let movimientoX =0;
-let movimientoY =0;
+let movimientoX = 0;
+let movimientoY = 0;
 let lastKey = 0;
 let head;
 
